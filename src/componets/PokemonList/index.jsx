@@ -4,7 +4,7 @@ import './style.css';
 
 /**
  *
- * @param {Array<pokemon>} pokemons
+ * @param {Array<pokemon|null>} pokemons
  * @return {JSX.Element}
  * @constructor
  */
@@ -14,15 +14,9 @@ export default function PokemonList({pokemons}) {
     <div className="pokemon-list">
       {pokemons.map((pokemon, i) => (
         <div key={i}>
-          <PokemonCard/>
+          <PokemonCard name={pokemon.name}/>
         </div>
       ))}
     </div>
   );
 }
-
-// Only for test purpose
-PokemonList.defaultProps = {
-  pokemons: Array(10).fill(' '),
-}
-

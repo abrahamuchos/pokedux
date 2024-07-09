@@ -1,12 +1,32 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Col } from "antd";
 import Nav from "./componets/Nav/index.jsx";
 import Searcher from "./componets/Searcher.jsx";
 import PokemonList from "./componets/PokemonList";
+import { getPokemons } from "./api/index.js";
+import { setPokemons } from "./actions/index.js";
 
 
 import './App.css'
 
+
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  // const [pokemons, setPokemons] = useState(/**@type {Array<pokemon|null>} pokemons **/[]);
+
+  const pokemons = useSelector(state => state.pokemons);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    const fetchPokemons = async () => {
+      const pokemonsRes = await getPokemons();
+      dispatch(setPokemons(pokemonsRes));
+    }
+
+    fetchPokemons().then( () => setIsLoading(false));
+  }, []);
 
   return (
     <>
@@ -16,19 +36,25 @@ function App() {
       </Col>
       {/*End Navigation*/}
 
-      {/*Search bar*/}
-      <Col span={8} offset={8}>
-        <Searcher/>
-      </Col>
-      {/*End Search bar*/}
+      {isLoading
+        ? <h1>Cargando...</h1>
+        : <>
+          {/*Search bar*/}
+          <Col span={8} offset={8}>
+            <Searcher/>
+          </Col>
+          {/*End Search bar*/}
 
-      {/*List*/}
-      <Col span={24}>
-        <PokemonList/>
-      </Col>
-      {/*End List*/}
+          {/*List*/}
+          <Col span={24}>
+            <PokemonList pokemons={pokemons}/>
+          </Col>
+          {/*End List*/}
+        </>
+      }
+
     </>
   )
 }
 
-export default App
+export default App;
