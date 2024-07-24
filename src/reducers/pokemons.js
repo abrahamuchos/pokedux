@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export const pokemonsReducer = (state = initialState, action) => {
-  switch (action.type){
+  switch (action.type) {
     case SET_POKEMONS:
       return {...state, pokemons: action.payload}
     default:

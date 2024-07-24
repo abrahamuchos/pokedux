@@ -1,33 +1,95 @@
 /**
  * @typedef {Object} pokemon
- * @property {integer} id
  * @property {string} name
- * @property {string} img
- * @property {string} description
+ * @property {string} url
  */
-import { Card } from "antd";
-import Meta from "antd/lib/card/Meta.js";
+/**
+ * @typedef {Object} pokemonDetail
+ * @property {string} name
+ * @property {number} order
+ * @property {number} weight
+ * @property {abilityArr} abilities
+ * @property {number} base_experience
+ * @property {species} species
+ * @property {sprites} sprites
+ * @property {typeArr} types
+ */
+/**
+ * @typedef {Array} abilityArr
+ * @property {boolean} is_hidden
+ * @property {number} slot
+ * @property {ability} ability
+ */
+/**
+ * @typedef {Object} ability
+ * @property {string} name
+ * @property {string} url
+ */
+/**
+ * @typedef {Object} species
+ * @property {string} name
+ * @property {string} url
+ */
+/**
+ * @typedef {Object} sprites
+ * @property {string|null} back_default - url image
+ * @property {string|null} back_female - url image
+ * @property {string|null} back_shiny - url image
+ * @property {string|null} back_shiny_female - url image
+ * @property {string|null} front_default - url image
+ * @property {string|null} front_female - url image
+ * @property {string|null} front_shiny - url image
+ * @property {string|null}  front_shiny_female - url image
+ */
+/**
+ * @typedef {Array}typeArr
+ * @property {number} slot
+ * @property {type} type
+ */
+/**
+ * @typedef {Object} type
+ * @typedef {string} name
+ * @typedef {string} url
+ */
+import { Card, Tag } from "antd";
 import { StarOutlined } from "@ant-design/icons";
 
 /**
  *
  * @param {string }name
  * @param {string|null} img
- * @param {string|null} description
+ * @param {abilityArr} abilities
+ * @param {typeArr} types
  * @return {JSX.Element}
  * @constructor
  */
-export default function PokemonCard({name, img, description}) {
+export default function PokemonCard({name, img, abilities, types}) {
 
 
   return (
     <Card
       title={name}
-      cover={<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png' alt={name}/>}
+      cover={<img src={img} alt={name}/>}
       extra={<StarOutlined/>}
     >
 
-      <Meta description={description ?? 'N/A'}/>
+      {/*Types*/}
+      <div>
+        <h3>Types</h3>
+        {types.map((type, i) => <Tag color='geekblue' key={i}>{type.type.name}</Tag>)}
+      </div>
+
+      {/*End Types*/}
+
+
+      {/* Abilities*/}
+      <div>
+        <h4>Abilities</h4>
+        <ul>
+          {abilities.map((ability, i) => <li key={i}>{ability.ability.name}</li>)}
+        </ul>
+      </div>
+      {/* End Abilities*/}
     </Card>
   );
 }

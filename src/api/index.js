@@ -18,3 +18,19 @@ export const getPokemons = async () =>{
   }
 
 }
+
+/**
+ *
+ * @param {pokemon} pokemon
+ * @return {Promise<pokemonDetail>}
+ */
+export const getPokemonDetails = async (pokemon) => {
+  try{
+    const {data} = await axios.get(pokemon.url);
+    return data;
+
+  }catch (e) {
+    console.error(e);
+    throw new Error(e);
+  }
+}

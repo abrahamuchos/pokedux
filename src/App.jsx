@@ -5,7 +5,7 @@ import Nav from "./componets/Nav/index.jsx";
 import Searcher from "./componets/Searcher.jsx";
 import PokemonList from "./componets/PokemonList";
 import { getPokemons } from "./api/index.js";
-import { setPokemons } from "./actions/index.js";
+import { getPokemonsWithDetails } from "./actions/index.js";
 
 
 import './App.css'
@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const fetchPokemons = async () => {
       const pokemonsRes = await getPokemons();
-      dispatch(setPokemons(pokemonsRes));
+      dispatch(getPokemonsWithDetails(pokemonsRes));
     }
 
     fetchPokemons().then( () => setIsLoading(false));
