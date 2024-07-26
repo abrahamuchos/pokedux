@@ -9,7 +9,8 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 export const getPokemons = async () =>{
 
   try{
-    const {data} = await axios.get(`${API_BASE_URL}/pokemon?limit=151`);
+    // const {data} = await axios.get(`${API_BASE_URL}/pokemon?limit=151`);
+    const {data} = await axios.get(`${API_BASE_URL}/pokemon?limit=15`);
     return data.results;
 
   }catch (e) {

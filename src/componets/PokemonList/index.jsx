@@ -14,7 +14,14 @@ export default function PokemonList({pokemons}) {
     <div className="pokemon-list">
       {pokemons.map((pokemon, i) => (
         <div key={i}>
-          <PokemonCard name={pokemon.name} img={pokemon?.sprites.front_default} abilities={pokemon?.abilities} types={pokemon.types}/>
+          <PokemonCard
+            id={pokemon.id}
+            name={pokemon.name}
+            img={pokemon?.sprites.front_default}
+            abilities={pokemon?.abilities}
+            types={pokemon.types}
+            isFavorite={pokemon.favorite}
+          />
         </div>
       ))}
     </div>

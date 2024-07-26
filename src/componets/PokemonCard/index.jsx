@@ -1,10 +1,12 @@
 /**
  * @typedef {Object} pokemon
+ * @property {number} id
  * @property {string} name
  * @property {string} url
  */
 /**
  * @typedef {Object} pokemonDetail
+ * @property {number} id
  * @property {string} name
  * @property {number} order
  * @property {number} weight
@@ -13,6 +15,7 @@
  * @property {species} species
  * @property {sprites} sprites
  * @property {typeArr} types
+ * @property {boolean|undefined} favorite
  */
 /**
  * @typedef {Array} abilityArr
@@ -52,25 +55,33 @@
  * @typedef {string} url
  */
 import { Card, Tag } from "antd";
-import { StarOutlined } from "@ant-design/icons";
+import StarButton from "../StarButton/index.jsx";
+import { useDispatch } from "react-redux";
+import { setFavorite } from "../../actions/index.js";
 
 /**
  *
- * @param {string }name
+ * @param {number} id
+ * @param {string} name
  * @param {string|null} img
  * @param {abilityArr} abilities
  * @param {typeArr} types
+ * @param {boolean|undefined} isFavorite
  * @return {JSX.Element}
  * @constructor
  */
-export default function PokemonCard({name, img, abilities, types}) {
+export default function PokemonCard({id, name, img, abilities, types, isFavorite = false}) {
+  const dispatch = useDispatch();
 
+  const handleFavorite = () => {
+    dispatch(setFavorite({id: id}))
+  }
 
   return (
     <Card
       title={name}
       cover={<img src={img} alt={name}/>}
-      extra={<StarOutlined/>}
+      extra={<StarButton isFavorite={isFavorite} onClick={handleFavorite}/>}
     >
 
       {/*Types*/}
